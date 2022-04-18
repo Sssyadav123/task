@@ -1,0 +1,192 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Storing streaming links/id to MongoDB(apps collections), maintained by curation sheet(CDN/youtube)
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 900
+    Runtime: nodejs12.x
+    MemorySize: 1024
+    Environment:
+      Variables:
+        NODE_ENV: !Ref env
+    VpcConfig:
+      SecurityGroupIds:
+        - !Ref sg
+      SubnetIds:
+        - !Ref sn1
+        - !Ref sn2
+
+Parameters:
+  env:
+    Type: String
+  sg:
+    Type: String
+  sn1:
+    Type: String
+  sn2:
+    Type: String
+
+Resources:
+  EnAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerEn
+      Events:
+        AbVideosIngestionEn:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-en
+            Method: get
+            RestApiId: !Ref MyApi
+  HiAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerHi
+      Events:
+        AbVideosIngestionHi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-hi
+            Method: get
+            RestApiId: !Ref MyApi
+  AsAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerAs
+      Events:
+        AbVideosIngestionAs:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-as
+            Method: get
+            RestApiId: !Ref MyApi
+  BnAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerBn
+      Events:
+        AbVideosIngestionBn:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-bn
+            Method: get
+            RestApiId: !Ref MyApi
+  GuVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerGu
+      Events:
+        AbVideosIngestionGu:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-gu
+            Method: get
+            RestApiId: !Ref MyApi
+  KnAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerKn
+      Events:
+        AbVideosIngestionKn:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-kn
+            Method: get
+            RestApiId: !Ref MyApi
+  MlAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerMl
+      Events:
+        AbVideosIngestionMl:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-ml
+            Method: get
+            RestApiId: !Ref MyApi
+  MrAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerMr
+      Events:
+        AbVideosIngestionMr:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-mr
+            Method: get
+            RestApiId: !Ref MyApi
+  OrAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerOr
+      Events:
+        AbVideosIngestionOr:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-or
+            Method: get
+            RestApiId: !Ref MyApi
+  PaAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerPa
+      Events:
+        AbVideosIngestionPa:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-pa
+            Method: get
+            RestApiId: !Ref MyApi
+  TaAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerTa
+      Events:
+        AbVideosIngestionTa:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-ta
+            Method: get
+            RestApiId: !Ref MyApi
+  TeAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerTe
+      Events:
+        AbVideosIngestionTe:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-te
+            Method: get
+            RestApiId: !Ref MyApi
+  UrAbVideosIngestionFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri:
+      Handler: app.lambdaHandlerUr
+      Events:
+        AbVideosIngestionUr:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /run-ur
+            Method: get
+            RestApiId: !Ref MyApi
+
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref env
